@@ -17,6 +17,7 @@ from controllers.sede import (LibroCategoriaSedeController,
 from flask_cors import CORS
 # para la documentacion
 from flask_swagger_ui import get_swaggerui_blueprint
+import os # sirve para usar las variables de entorno tanto de la maquina como de heroku
 
 SWAGGER_URL = '' # esta variable se usa para indicar en que endpoint se encontrará la documentacion
 API_URL = '/static/swagger.json' # se usa para indicar en que parte del proyecto se encuentra el archivo de la documentacion
@@ -33,7 +34,7 @@ app.register_blueprint(swagger_blueprint)
 
 # https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/#connection-uri-format
 #                                    formato://username:password@host:port/databasename
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://numjmbfsfzvdbzfp:f4xhk9fzmaayj85s@d6rii63wp64rsfb5.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/t7pdjw13yz44k2hq'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['JAWSDB_URL']
 api = Api(app)
 CORS(app) # PERMITIENDO TODOS LOS METODOS , DOMINIOS Y HEADERS
 
